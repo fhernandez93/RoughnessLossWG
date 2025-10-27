@@ -17,7 +17,7 @@ class loadAndRunStructure:
 
     def __init__(self, key:str, sim_size:float=6, 
                 wg_width:float = 1.5,
-                wg_height:float = 1.0,
+                wg_height:float = 1.5,
                 wg_permittivity:float = 6,
                 lambda0:float=2,
                 source_width:float = 0.35,
@@ -37,7 +37,7 @@ class loadAndRunStructure:
         self.freq0 = td.C_0/lambda0
         self.fwidth = self.freq0*source_width
         self.waveguide = td.Structure(
-                    geometry=td.Box(size=(wg_width, td.inf, wg_height)),
+                    geometry=td.Box(size=(wg_height,wg_width, td.inf)),
                     medium=td.Medium(permittivity=wg_permittivity)
                 )
         self.resolution = resolution
@@ -61,7 +61,7 @@ class loadAndRunStructure:
         return sim
     
     def create_mode_solver(self):
-        plane = td.Box(center=(0, 0, 0), size=(4, 0, 3.5))
+        plane = td.Box(center=(0, 0, 0), size=(4, 3.5, 0))
         mode_spec = td.ModeSpec(
             num_modes=self.num_modes
             )
